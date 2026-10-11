@@ -6,9 +6,9 @@ namespace DesafioDioEstacionamento.Models
 {
     public class Estacionamento
     {
-        private decimal precoInicial = 0;
-        private decimal precoPorHora = 0;
-        private List<string> veiculos = new List<string>();
+        private readonly decimal precoInicial = 0;
+        private readonly decimal precoPorHora = 0;
+        private readonly List<string> veiculos = [];
 
         public Estacionamento(decimal precoInicial, decimal precoPorHora)
         {
@@ -19,14 +19,26 @@ namespace DesafioDioEstacionamento.Models
         public void AdicionarVeiculo()
         {
             Console.WriteLine("Digite a placa do veículo para estacionar:");
-            string placa = Console.ReadLine();
+            string? placa = Console.ReadLine();
+            if (placa is null)
+            {
+                Console.WriteLine("Placa inválida. Tente novamente.");
+                return;
+            }
+
             veiculos.Add(placa);
         }
 
         public void RemoverVeiculo()
         {
             Console.WriteLine("Digite a placa do veículo para remover:");
-            string placa = Console.ReadLine();
+            string? placa = Console.ReadLine();
+
+            if (placa is null)
+            {
+                Console.WriteLine("Placa inválida. Tente novamente.");
+                return;
+            }
 
             // Verifica se o veículo existe
             if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
@@ -52,7 +64,7 @@ namespace DesafioDioEstacionamento.Models
             if (veiculos.Any())
             {
                 Console.WriteLine("Os veículos estacionados são:");
-               for (int i = 0; i < veiculos.Count; i++)
+                for (int i = 0; i < veiculos.Count; i++)
                 {
                     Console.WriteLine($"{i + 1} - {veiculos[i]}");
                 }
