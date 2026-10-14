@@ -4,17 +4,11 @@ using System.Text;
 
 namespace DesafioDioEstacionamento.Models
 {
-    public class Estacionamento
+    public class Estacionamento(decimal precoInicial, decimal precoPorHora)
     {
-        private readonly decimal precoInicial = 0;
-        private readonly decimal precoPorHora = 0;
+        private readonly decimal precoInicial = precoInicial;
+        private readonly decimal precoPorHora = precoPorHora;
         private readonly List<string> veiculos = [];
-
-        public Estacionamento(decimal precoInicial, decimal precoPorHora)
-        {
-            this.precoInicial = precoInicial;
-            this.precoPorHora = precoPorHora;
-        }
 
         public void AdicionarVeiculo()
         {
@@ -41,7 +35,7 @@ namespace DesafioDioEstacionamento.Models
             }
 
             // Verifica se o veículo existe
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+            if (veiculos.Any(x => x.Equals(placa, StringComparison.CurrentCultureIgnoreCase)))
             {
                 Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
 
@@ -61,7 +55,7 @@ namespace DesafioDioEstacionamento.Models
         public void ListarVeiculos()
         {
             // Verifica se há veículos no estacionamento
-            if (veiculos.Any())
+            if (veiculos.Count != 0)
             {
                 Console.WriteLine("Os veículos estacionados são:");
                 for (int i = 0; i < veiculos.Count; i++)
